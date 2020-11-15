@@ -13,8 +13,8 @@ class AccountSeeder extends Seeder
     public function run()
     {
         DB::table('accounts')->insert([
-            'number' => mt_rand(100000, 400000),
-            'balance' => round(mt_rand()/mt_getrandmax(), 2),
+            'number' => mt_rand(100000, 9999999),
+            'balance' => round(mt_rand(0, 100000)*(mt_rand()/mt_getrandmax()), 2),
         ]);
     }
 }
