@@ -16,7 +16,6 @@ class AccountController extends Controller
     public function index()
     {
         return Account::all();
-
     }
 
     /**
@@ -38,7 +37,11 @@ class AccountController extends Controller
      */
     public function show($number)
     {
-        return Account::where('number', $number)->first();
+        if($account = Account::where('number', $number)->first()) {
+            return $account;
+        } else {
+            return 'Conta inexistente. Tente novamente.';
+        }
     }
 
     /**
@@ -66,5 +69,34 @@ class AccountController extends Controller
     {
         $account = Account::findOrFail($account->id);
         $account->delete();
+    }
+
+    public function deposit(Request $request, $number)
+    {
+        if(Account::where('number', $number)->first()) {
+            $account = Account::where('number', $number)->first();
+            $account->balance = $account->balance + $request->balance;
+            $account->save();
+
+            return $account;
+        } else {
+            return 'Conta inexistente. Tente novamente.';
+        }
+    }
+
+    public function draw(Request $request, $number)
+    {
+        if($account = Account::where('number', $number)->first()) {
+            if($account->balance >= $request->balance) {
+                $account->balance = $account->balance - $request->balance;
+                $account->save();
+
+                return $account;
+            } else {
+                return 'Saldo Insuficiente.';
+            }
+        } else {
+            return 'Conta inexistente. Tente novamente.';
+        }
     }
 }

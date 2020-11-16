@@ -13,10 +13,8 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-/*
 Route::prefix('accounts')->group(function () {
-    Route::get('{number}', 'Api\AccountController@showBalance');
-    Route::put('{number}', 'Api\AccountController@deposit');
+    Route::put('deposit/{number}', 'Api\AccountController@deposit');
+    Route::put('draw/{number}', 'Api\AccountController@draw');
 });
-*/
 Route::apiResource('accounts', 'Api\AccountController');
