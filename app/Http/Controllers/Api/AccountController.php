@@ -36,21 +36,9 @@ class AccountController extends Controller
      * @param  \App\Account  $account
      * @return \Illuminate\Http\Response
      */
-    public function show(Account $account)
+    public function show($number)
     {
-        return Account::findOrFail($account->id);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Account  $account
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Account $account)
-    {
-        $account = Account::findOrFail($account->id);
-        $account->edit();
+        return Account::where('number', $number)->first();
     }
 
     /**
@@ -60,10 +48,12 @@ class AccountController extends Controller
      * @param  \App\Account  $account
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Account $account)
+    public function update(Request $request, $number)
     {
-        $account = Account::findOrFail($account->id);
+        $account = Account::where('number', $number)->first();
         $account->update($request->all());
+
+        return $account;
     }
 
     /**
@@ -76,23 +66,5 @@ class AccountController extends Controller
     {
         $account = Account::findOrFail($account->id);
         $account->delete();
-    }
-
-    public function showBalance(Account $account)
-    {
-        $account = Account::findOrFail($account->id);
-        return $account->balance;
-    }
-
-    public function deposit(Request $request, Account $account)
-    {
-        $account = Account::findOrFail($account->id);
-        $account->balance = $account->balance + $request->value;
-    }
-
-    public function draw(Request $request, Account $account)
-    {
-        $account = Account::findOrFail($account->id);
-        $account->balance = $account->balance - $request->value;
     }
 }
