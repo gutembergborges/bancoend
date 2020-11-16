@@ -14,7 +14,6 @@ This project is a Laravel API Rest Web Service developed by Gutemberg Borges to 
 ### Database SQLite
 
 Create a new SQLite database using a command such as 
-
 ```
 touch database/database.sqlite
 ```
@@ -29,9 +28,14 @@ You can execute migrations by
 php artisan migrate
 ```
 
-And execute seeder by
+Run seeder **how many times you need to a number of registers** to populate database by
 ```
 php artisan db:seed
+```
+
+After, you can use endpoint index to check registers by HTTP GET method
+```
+http://localhost:8000/api/accounts/
 ```
 
 ## Developer Contact
